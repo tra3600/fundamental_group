@@ -1,30 +1,38 @@
-Le groupe fondamental est un concept central en topologie algébrique, représentant les classes d'homotopie de boucles basées en un point donné dans un espace topologique. En termes simples, il capture les informations sur la structure des chemins fermés dans l'espace.
+# Groupe fondamental
 
-Pour illustrer le groupe fondamental en C++, nous allons modéliser un espace simple, comme un cercle, et montrer comment les boucles basées en un point peuvent être représentées et manipulées.
+Programme C++ et cours autour du **groupe fondamental** $\pi_1(X)$ : les classes d'homotopie de lacets d'un espace, qui comptent « combien de fois on tourne » autour des trous.
 
-Explications
-Définition d'un Point sur le Cercle :
+* **[`COURS.md`](COURS.md)** — cours complet (théorie, exemples, comparaison des espaces, applications physiques et techniques, exercices corrigés).
+* **[`COURS.pdf`](COURS.pdf)** — le même cours en PDF (17 pages, 10 figures, dans [`figures/`](figures/)).
+* **`fundamental_group.cpp`** — le programme qui illustre chaque chapitre.
 
-La structure Point représente un point sur le cercle unitaire avec des coordonnées (x, y).
-Fonction point_on_circle :
+## Ce que le programme calcule
 
-Cette fonction calcule les coordonnées d'un point sur le cercle unitaire pour un angle donné en utilisant les fonctions trigonométriques cos et sin.
-Classe Loop :
+| Module | Espace / phénomène | Résultat vérifié |
+|---|---|---|
+| 1 | cercle $S^1$ | $\pi_1=\mathbb Z$ : degré additif, inverse, invariance par homotopie |
+| 2 | polynôme sur un cercle | principe de l'argument : indice = nombre de racines |
+| 3 | tore $T^2$ | $\pi_1=\mathbb Z^2$ |
+| 4 | plan privé de 2 points | groupe libre $F_2$ : mots réduits, commutateur |
+| 5 | champ de phase sur réseau | vortex / antivortex (superfluides, modèle XY) |
+| 6 | Aharonov–Bohm | phase $2\pi n\Phi/\Phi_0$ |
+| 7 | $SO(3)$ | $\pi_1=\mathbb Z/2$, quaternions, spineurs |
+| 8 | chaîne SSH | invariant d'enroulement d'une phase topologique |
 
-La classe Loop représente une boucle sur le cercle, définie par une séquence de points.
-Le constructeur de la classe prend une séquence d'angles et convertit chaque angle en un point sur le cercle.
-La méthode print affiche les points de la boucle.
-La méthode compose concatène deux boucles en combinant leurs séquences d'angles.
-Programme Principal :
+Un lacet sur le cercle est stocké par son **relèvement** dans $\mathbb R$, ce qui conserve le nombre de tours (la première version, qui recomposait par `atan2`, le perdait).
 
-Deux boucles sont définies par des séquences d'angles.
-Les boucles sont affichées.
-Les deux boucles sont composées (concaténées) pour créer une nouvelle boucle, qui est ensuite affichée.
-Utilisation
-Compilez le programme avec un compilateur C++ :
+## Utilisation
 
-g++ fundamental_group.cpp -o fundamental_group -lm
-Exécutez le programme :
-
+```
+g++ -std=c++17 -O2 -Wall -Wextra fundamental_group.cpp -o fundamental_group
 ./fundamental_group
-Ce programme illustre le concept de base du groupe fondamental en représentant des boucles sur un cercle et en montrant comment ces boucles peuvent être composées. Pour des applications plus complexes en topologie algébrique, d'autres structures et algorithmes devraient être utilisés.
+```
+
+Chaque vérification affiche `[OK]` ou `[ECHEC]` ; le code de retour est `0` si tout passe.
+
+## Régénérer les figures et le PDF
+
+```
+python3 figures/make_figures.py          # matplotlib, numpy
+KATEX_DIR=.../node_modules/katex/dist python3 tools/build_pdf.py   # markdown, KaTeX, playwright + Chromium
+```
