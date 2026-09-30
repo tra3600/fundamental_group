@@ -3,6 +3,7 @@
 Programme C++ et cours autour du **groupe fondamental** $\pi_1(X)$ : les classes d'homotopie de lacets d'un espace, qui comptent « combien de fois on tourne » autour des trous.
 
 * **[`COURS.md`](COURS.md)** — cours complet (théorie, exemples, comparaison des espaces, applications physiques et techniques, exercices corrigés).
+* **[`COURS.pdf`](COURS.pdf)** — le même cours en PDF (17 pages, 10 figures, dans [`figures/`](figures/)).
 * **`fundamental_group.cpp`** — le programme qui illustre chaque chapitre.
 
 ## Ce que le programme calcule
@@ -28,3 +29,10 @@ g++ -std=c++17 -O2 -Wall -Wextra fundamental_group.cpp -o fundamental_group
 ```
 
 Chaque vérification affiche `[OK]` ou `[ECHEC]` ; le code de retour est `0` si tout passe.
+
+## Régénérer les figures et le PDF
+
+```
+python3 figures/make_figures.py          # matplotlib, numpy
+KATEX_DIR=.../node_modules/katex/dist python3 tools/build_pdf.py   # markdown, KaTeX, playwright + Chromium
+```

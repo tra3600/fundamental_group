@@ -79,6 +79,12 @@ est un isomorphisme de groupes, où $\tilde\gamma:[0,1]\to\mathbb R$ est un **re
 
 > **Illustration numérique** (`chapter1`). On vérifie $\deg(a\!\cdot\! b)=\deg a+\deg b$, $\deg(a^{-1})=-\deg a$, et on déforme une boucle de degré 3 par $\theta_\varepsilon(t)=6\pi t+\varepsilon\sin(4\pi t)$ pour $\varepsilon\in\{0,0.5,1,2,3\}$ : le degré reste $3$. Les autres boucles se contractent par l'homotopie linéaire de l'étape 5.
 
+![Figure 1 — Un lacet de degré 2 et son relèvement dans $\mathbb R$ : le degré se lit sur la hauteur finale.](figures/fig01_relevement.png)
+*Figure 1 — Un lacet de degré 2 et son relèvement dans $\mathbb R$ : le degré se lit sur la hauteur finale.*
+
+![Figure 2 — Déformer le lacet (à base fixée) ne change pas le degré.](figures/fig02_homotopie.png)
+*Figure 2 — Déformer le lacet (à base fixée) ne change pas le degré.*
+
 ### 2.3 Pourquoi le relèvement est indispensable
 
 L'ancienne version du programme composait des boucles en reconvertissant chaque point par `atan2`, ce qui ramène $2\pi$ à $0$ : **l'information « nombre de tours » était perdue**. C'est exactement l'erreur que le relèvement corrige. De même, la seconde « boucle » de l'ancien exemple, $0\to\pi$, n'est pas fermée : c'est un *chemin*, pas un élément de $\pi_1$ (la loi de groupe n'est définie que pour des lacets de même base).
@@ -88,6 +94,9 @@ L'ancienne version du programme composait des boucles en reconvertissant chaque 
 Un lacet est connu par des points. On reconstruit le relèvement en prenant, entre deux points consécutifs, le **plus court arc** (écart dans $]-\pi,\pi]$). C'est correct **si et seulement si le pas est $<\pi$** : c'est la condition de Nyquist de la phase. Contre-exemple du programme : les angles $0,\,4,\,8,\,2\pi$ (pas $4>\pi$) donnent « degré $-1$ » au lieu de $+1$.
 
 En pratique (GPS, interférométrie radar InSAR, IRM) ce phénomène s'appelle **saut de cycle** (*cycle slip*) ou *phase unwrapping error*, cf. §8.6.
+
+![Figure 3 — Phase mesurée modulo $2\pi$, déroulement correct (pas $<\pi$) et saut de cycle (pas $>\pi$).](figures/fig10_deroulement.png)
+*Figure 3 — Phase mesurée modulo $2\pi$, déroulement correct (pas $<\pi$) et saut de cycle (pas $>\pi$).*
 
 ---
 
@@ -115,6 +124,9 @@ Plus précisément : le degré de $t\mapsto p(Re^{it})$ autour de $0$ est **le n
 >
 > Le programme calcule ces indices en sommant $\arg\big(p(z_{k+1})/p(z_k)\big)$ — sans jamais chercher les racines.
 
+![Figure 4 — Le cercle $|z|=R$ (racines en rouge) et son image par $p$ : l'indice autour de $0$ compte les racines enfermées.](figures/fig03_argument.png)
+*Figure 4 — Le cercle $|z|=R$ (racines en rouge) et son image par $p$ : l'indice autour de $0$ compte les racines enfermées.*
+
 **Usage réel** : c'est le principe derrière le critère de Nyquist (§8.5).
 
 ---
@@ -130,6 +142,9 @@ $\pi_1(X\times Y)\cong\pi_1(X)\times\pi_1(Y)$ (un lacet dans le produit est un c
 $\pi_1(T^2)\cong\mathbb Z\times\mathbb Z$, **abélien**. Un lacet a deux degrés : $m$ tours en longitude, $n$ en méridien. La courbe $t\mapsto(e^{2\pi i pt},e^{2\pi i qt})$ a pour classe $(p,q)$ ; c'est un nœud sur le tore (nœud torique) si $\gcd(p,q)=1$.
 
 > **Illustration** (`chapter3`). Longitude $m=(1,0)$, méridien $l=(0,1)$ : $ml\mapsto(1,1)$ et $lm\mapsto(1,1)$ (commutatif) ; la courbe $(2,3)$ est le nœud de trèfle tracé sur le tore.
+
+![Figure 5 — Sur le tore, une courbe a deux degrés ; la courbe $(2,3)$ est un nœud de trèfle.](figures/fig04_tore.png)
+*Figure 5 — Sur le tore, une courbe a deux degrés ; la courbe $(2,3)$ est un nœud de trèfle.*
 
 **Comparaison.** $S^2$ est simplement connexe alors que $T^2$ ne l'est pas : c'est une preuve élémentaire que $S^2\not\cong T^2$ (on peut aussi les distinguer par leur caractéristique d'Euler, $2$ contre $0$ ; l'avantage de $\pi_1$ est qu'il détecte en plus la *structure* des lacets, par exemple $\mathbb Z$ contre $F_2$).
 
@@ -167,6 +182,9 @@ aAbBaB  →  aB
 > | grand cercle | $(1,1)$ | $ab$ |
 > | lemniscate (un lobe +, l'autre −) | $(1,-1)$ | $aB$ |
 
+![Figure 6 — Trois lacets du plan percé de deux points, avec leur mot dans $F_2$ et leurs indices.](figures/fig05_plan_perce.png)
+*Figure 6 — Trois lacets du plan percé de deux points, avec leur mot dans $F_2$ et leurs indices.*
+
 ### 5.3 Surfaces
 
 Surface orientable de genre $g$ : $\pi_1=\langle a_1,b_1,\dots,a_g,b_g\mid [a_1,b_1]\cdots[a_g,b_g]\rangle$ ; son abélianisé $H_1=\mathbb Z^{2g}$. Bouteille de Klein : $\langle a,b\mid abab^{-1}\rangle$, $H_1=\mathbb Z\oplus\mathbb Z/2$.
@@ -200,6 +218,9 @@ Un revêtement $p:\tilde X\to X$ avec $\tilde X$ simplement connexe (**revêteme
 Une rotation d'angle $\varphi$ autour d'un axe $\mathbf n$ se relève en le quaternion unitaire $q=\big(\cos\tfrac\varphi2,\ \sin\tfrac\varphi2\,\mathbf n\big)\in S^3$, et $q$ et $-q$ donnent la même rotation. Faire un tour complet ($\varphi:0\to2\pi$) mène de $q=1$ à $q=-1$ : le relèvement n'est **pas fermé**, donc le lacet de rotations est non trivial dans $SO(3)$. Deux tours ramènent à $q=+1$ : lacet trivial.
 
 > **Illustration** (`chapter7`) : $k=0,\dots,4$ tours donnent $q(1)=+1,-1,+1,-1,+1$ : la classe dans $\mathbb Z/2$ est $k\bmod 2$.
+
+![Figure 7 — Le relèvement dans $SU(2)$ d'un tour de $SO(3)$ finit en $-1$ : lacet non trivial ; deux tours le referment.](figures/fig09_so3.png)
+*Figure 7 — Le relèvement dans $SU(2)$ d'un tour de $SO(3)$ finit en $-1$ : lacet non trivial ; deux tours le referment.*
 
 **Réalité physique.**
 
@@ -245,6 +266,9 @@ où $n$ est le **degré** : seule la classe d'homotopie du lacet compte. L'inten
 
 > **Illustration** (`chapter6`). $\Phi/\Phi_0=1/2$ et $n=1$ : intensité $0$ (franges éteintes). $\Phi=\Phi_0$ : indiscernable de $\Phi=0$. Et $n=2$, $\Phi=\Phi_0/4$ donne aussi l'extinction : c'est le degré qui décide.
 
+![Figure 8 — Intensité d'interférence en fonction du flux, pour des trajets de degré $n=1$ et $n=2$.](figures/fig07_aharonov_bohm.png)
+*Figure 8 — Intensité d'interférence en fonction du flux, pour des trajets de degré $n=1$ et $n=2$.*
+
 Dans un supraconducteur, le flux piégé dans un anneau est quantifié en unités $h/2e\approx2{,}07\times10^{-15}$ Wb : c'est la quantification de $\pi_1(S^1)=\mathbb Z$ pour la phase du condensat (SQUID, qubits supraconducteurs).
 
 ### 8.2 Vortex dans les superfluides et supraconducteurs
@@ -253,13 +277,10 @@ Le paramètre d'ordre $\psi=|\psi|e^{i\theta}$ prend ses valeurs sur $S^1$ hors 
 $$\oint v\cdot d\ell=\frac{\hbar}{m}\oint\nabla\theta\cdot d\ell=n\,\frac hm$$
 ($h/m_{^4\mathrm{He}}\approx10^{-7}\ \mathrm{m^2/s}$). Le cœur ne peut pas être supprimé par une déformation douce : l'indice est topologique. Une paire vortex–antivortex (charge totale $0$) peut s'annihiler, un vortex isolé non — c'est la physique de la **transition de Kosterlitz–Thouless** (Nobel 2016).
 
-> **Illustration** (`chapter5`). Un champ de phase $\theta=\arg(z-v)-\arg(z-\bar v)$ sur un réseau $14\times14$. On calcule, pour chaque plaquette, $\frac1{2\pi}\sum(\text{écarts de phase dans }]-\pi,\pi])$ :
-> ```
-> . . . . . . . . . - . . .     ← antivortex (−1)
-> . . . . . . . . . . . . .
-> . . . . + . . . . . . . .     ← vortex (+1)
-> ```
-> La somme sur tout le bord du réseau vaut $0$ (charge totale nulle) mais le bord d'un petit rectangle autour du vortex seul vaut $+1$ : c'est la version discrète du théorème de Stokes, $\deg(\partial R)=\sum_{P\subset R}\text{charge}(P)$.
+> **Illustration** (`chapter5`). Un champ de phase $\theta=\arg(z-v)-\arg(z-v')$ (un vortex en $v$, un antivortex en $v'$) sur un réseau $14\times14$. On calcule, pour chaque plaquette, $\frac1{2\pi}\sum(\text{écarts de phase dans }]-\pi,\pi])$ ; le programme affiche une carte où seules deux plaquettes sont non nulles (`+` et `-`, figure 9). La somme sur tout le bord du réseau vaut $0$ (charge totale nulle) mais le bord d'un petit rectangle autour du vortex seul vaut $+1$ : c'est la version discrète du théorème de Stokes, $\deg(\partial R)=\sum_{P\subset R}\text{charge}(P)$.
+
+![Figure 9 — Champ de phase d'une paire vortex–antivortex et plaquettes de charge non nulle détectées par le programme.](figures/fig06_vortex.png)
+*Figure 9 — Champ de phase d'une paire vortex–antivortex et plaquettes de charge non nulle détectées par le programme.*
 
 ### 8.3 Défauts topologiques, cristaux liquides, cosmologie
 
@@ -281,6 +302,9 @@ Par la correspondance bulk–bord, $W=1$ implique des **états de bord** protég
 > **Illustration** (`chapter8`) : $(v,w)=(1,0.4),(1,0.8)\to W=0$ ; $(0.4,1),(0.8,1),(0.5,-1)\to W=1$.
 
 (Les phases de Chern / Hall quantique relèvent de $\pi_2$ et des nombres de Chern ; l'enroulement est leur analogue unidimensionnel.)
+
+![Figure 10 — Courbe $k\mapsto h(k)$ de la chaîne SSH : elle entoure l'origine (phase topologique) ou non.](figures/fig08_ssh.png)
+*Figure 10 — Courbe $k\mapsto h(k)$ de la chaîne SSH : elle entoure l'origine (phase topologique) ou non.*
 
 ### 8.5 Ingénierie : critère de Nyquist
 
